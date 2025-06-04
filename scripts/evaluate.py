@@ -1,13 +1,14 @@
-
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
-# Load the model
-model = joblib.load('../models/best_lightgbm_model.pkl')
+# Load the model using joblib
+model_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'best_lightgbm_model.pkl')
+model = joblib.load(model_path)
 
-# Load the data
-data = pd.read_csv('../data/energy_data.csv')
+# Load and preprocess the data
+data = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'data', 'energy_data.csv'))
 data['DateTime'] = pd.to_datetime(data['DateTime'])
 data = data.drop(columns=['DateTime'])
 data = data.fillna(data.median())
@@ -36,4 +37,4 @@ input_data = pd.DataFrame({
     'Occupancy': [occupancy]
 })
 prediction = model.predict(input_data)
-st.write(f'Predicted Energy Consumption: {prediction[0]}')
+st.write(f'🔋 **Predicted Energy Consumption:** {prediction[0]:.2f}')

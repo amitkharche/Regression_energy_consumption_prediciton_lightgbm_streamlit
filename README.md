@@ -43,8 +43,8 @@ energy-lightgbm-project/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/energy-lightgbm-project.git
-   cd energy-lightgbm-project
+   git clone https://github.com/amitkharche/Regression_energy_consumption_prediciton_lightgbm_streamlit.git
+   cd Regression_energy_consumption_prediciton_lightgbm_streamlit
    ```
 
 2. **Create a virtual environment**
@@ -96,6 +96,15 @@ energy-lightgbm-project/
 - Light Usage (kWh)
 - Occupancy (count)
 
+## 🖼️ Streamlit App UI
+
+<p align="center">
+  <img src="App_UI.jpg" alt="Energy Consumption Prediction App UI" width="600"/>
+</p>
+<p align="center">
+  <img src="App_UI1.jpg" alt="Energy Consumption Prediction App UI" width="600"/>
+</p>
+
 ---
 
 ## ✅ TODOs
@@ -120,5 +129,10 @@ This project is licensed under the MIT License.
 
 ## 🙋‍♂️ Maintainer
 
-Developed by [Your Name](https://www.linkedin.com/in/yourprofile)  
-📧 Email: your.email@example.com
+Developed by **Amit Kharche**
+## 🔗 Connect with Me
+
+* [LinkedIn](https://www.linkedin.com/in/amitkharche)
+* [Newsletter – From Data to Decisions](https://www.linkedin.com/newsletters/from-data-to-decisions-7309470147277168640/)
+* [GitHub](https://github.com/amitkharche)
+* [Medium](https://medium.com/@amitkharche14)

@@ -51,3 +51,23 @@ st.write(input_data)
 
 prediction = model.predict(input_data)
 st.success(f'Predicted Energy Consumption: {prediction[0]:.2f} kWh')
+
+import matplotlib.pyplot as plt
+
+# Feature importance section
+st.subheader("🔍 Feature Importance")
+
+try:
+    importances = model.feature_importances_
+    feature_names = ['Temperature', 'Humidity', 'ApplianceUsage', 'LightUsage', 'Occupancy']
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.barh(feature_names, importances, color='skyblue')
+    ax.set_xlabel("Importance")
+    ax.set_title("Feature Importances")
+    ax.invert_yaxis()
+    st.pyplot(fig)
+
+except AttributeError:
+    st.warning("Feature importances are not available for this model.")
+

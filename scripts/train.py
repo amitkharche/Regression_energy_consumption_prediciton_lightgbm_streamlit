@@ -1,7 +1,8 @@
-
-import lightgbm as lgb
-from sklearn.model_selection import train_test_split
+import os
 import joblib
+from sklearn.model_selection import train_test_split
+from lightgbm import LGBMRegressor
+from preprocess import preprocess_data  # Ensure this import works relative to your script location
 
 def train_model(df):
     # Split the data into features and target
@@ -11,28 +12,34 @@ def train_model(df):
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    # Create a LightGBM dataset
-    train_data = lgb.Dataset(X_train, label=y_train)
-    test_data = lgb.Dataset(X_test, label=y_test)
+    # Define and train the model using scikit-learn API
+    model = LGBMRegressor(
+        objective='regression',
+        boosting_type='gbdt',
+        num_leaves=31,
+        learning_rate=0.05,
+        feature_fraction=0.9
+    )
     
-    # Define parameters
-    params = {
-        'objective': 'regression',
-        'metric': 'rmse',
-        'boosting_type': 'gbdt',
-        'num_leaves': 31,
-        'learning_rate': 0.05,
-        'feature_fraction': 0.9
-    }
-    
-    # Train the model
-    model = lgb.train(params, train_data, valid_sets=[test_data], early_stopping_rounds=10)
-    
-    # Save the model
-    joblib.dump(model, 'models/lightgbm_model.pkl')
+    try:
+        model.fit(X_train, y_train)
+        print("✅ Model trained successfully.")
+        
+        # Ensure the models directory exists
+        model_dir = os.path.join(os.path.dirname(__file__), '..', 'models')
+        os.makedirs(model_dir, exist_ok=True)
+
+        # Save the model
+        model_path = os.path.join(model_dir, 'best_lightgbm_model.pkl')
+        joblib.dump(model, model_path)
+        print(f"✅ Model saved at: {model_path}")
+    except Exception as e:
+        print(f"❌ Error during training or saving: {e}")
     
     return model
 
-# Example usage:
-# df = preprocess_data('data/energy_data.csv')
-# model = train_model(df)
+# Run this script directly
+if __name__ == "__main__":
+    data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'energy_data.csv')
+    df = preprocess_data(data_path)
+    train_model(df)
