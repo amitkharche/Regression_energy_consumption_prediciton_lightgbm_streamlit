@@ -1,0 +1,9 @@
+# Azure Web App Docker Deployment Guide
+
+1. Ensure you have `Dockerfile` in the root directory.
+2. Push this project to GitHub.
+3. Go to Azure Portal → Create Web App → Choose Docker → Point to GitHub Repo.
+4. Choose build trigger (on push to main).
+5. Select port `8501` and deploy.
+
+No extra YAML needed. Azure uses your Dockerfile directly.
